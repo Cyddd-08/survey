@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Survey</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #ffe6e6; }
+        .container { width: 80%; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px gray; }
+        h1 { color: #ff4d4d; }
+        label { font-weight: bold; }
+        textarea, select, input { width: 90%; padding: 8px; margin-top: 5px; }
+        button { background-color: #ff4d4d; color: white; padding: 10px; border: none; cursor: pointer; margin-top: 10px; }
+        button:hover { background-color: #cc0000; }
+        .question { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>💖 Personal Survey 💖</h1>
+        <p>Answer each question step by step.</p>
+
+        <form id="surveyForm">
+            <div id="nameInput">
+                <label>🌸 Enter your name or nickname:</label><br>
+                <input type="text" id="userName" placeholder="Your name..." required><br><br>
+                <button type="button" onclick="startSurvey()">Start</button>
+            </div>
+
+            <div class="question" id="q1">
+                <label>1. Do you like someone that you can’t have?</label><br>
+                <select id="answer1">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    <option value="Not sure">Not sure</option>
+                </select><br><br>
+                <button type="button" onclick="nextQuestion(1)">Next</button>
+            </div>
+
+            <div class="question" id="q2">
+                <label>2. Do you still like that person?</label><br>
+                <select id="answer2">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    <option value="I'm trying to move on">I'm trying to move on</option>
+                </select><br><br>
+                <button type="button" onclick="nextQuestion(2)">Next</button>
+            </div>
+
+            <div class="question" id="q3">
+                <label>3. Is it a him or her?</label><br>
+                <select id="answer3">
+                    <option value="Him">Him</option>
+                    <option value="Her">Her</option>
+                    <option value="Secret">Secret</option>
+                </select><br><br>
+                <button type="button" onclick="nextQuestion(3)">Next</button>
+            </div>
+
+            <div class="question" id="q4">
+                <label>4. Do you think they like you back?</label><br>
+                <select id="answer4">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    <option value="Maybe">Maybe</option>
+                </select><br><br>
+                <button type="button" onclick="nextQuestion(4)">Next</button>
+            </div>
+
+            <div class="question" id="q5">
+                <label>5. If they confessed to you, would you accept?</label><br>
+                <select id="answer5">
+                    <option value="Of course">Of course</option>
+                    <option value="I'm not sure">I'm not sure</option>
+                    <option value="No, it's too late">No, it's too late</option>
+                </select><br><br>
+                <button type="button" onclick="nextQuestion(5)">Next</button>
+            </div>
+
+            <div class="question" id="q6">
+                <label>6. What’s stopping you from telling them how you feel?</label><br>
+                <textarea id="answer6" rows="3" placeholder="Write your reason..."></textarea><br><br>
+                <button type="button" onclick="nextQuestion(6)">Next</button>
+            </div>
+
+            <div class="question" id="q7">
+                <label>7. Do you believe in soulmates?</label><br>
+                <select id="answer7">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    <option value="Maybe">Maybe</option>
+                </select><br><br>
+                <button type="button" onclick="nextQuestion(7)">Next</button>
+            </div>
+
+            <div class="question" id="q8">
+                <label>8. Do you regret not telling them your feelings earlier?</label><br>
+                <select id="answer8">
+                    <option value="Yes, I should have told them">Yes, I should have told them</option>
+                    <option value="No, I made the right choice">No, I made the right choice</option>
+                    <option value="I'm still thinking about it">I'm still thinking about it</option>
+                </select><br><br>
+                <button type="button" onclick="nextQuestion(8)">Next</button>
+            </div>
+
+            <div class="question" id="q9">
+                <label>9. What’s one thing you wish they knew about you?</label><br>
+                <textarea id="answer9" rows="3" placeholder="Write your answer..."></textarea><br><br>
+                <button type="button" onclick="nextQuestion(9)">Next</button>
+            </div>
+
+            <div class="question" id="q10">
+                <label>10. If you could say one last thing to them, what would it be?</label><br>
+                <textarea id="answer10" rows="3" placeholder="Write your message..."></textarea><br><br>
+                <button type="button" onclick="nextQuestion(10)">See All Answers</button>
+            </div>
+
+            <div class="question" id="final">
+                <h2>📜 Your Answers 📜</h2>
+                <p><strong>💖 Name:</strong> <span id="showName"></span></p>
+                <p><strong>1.</strong> <span id="show1"></span></p>
+                <p><strong>2.</strong> <span id="show2"></span></p>
+                <p><strong>3.</strong> <span id="show3"></span></p>
+                <p><strong>4.</strong> <span id="show4"></span></p>
+                <p><strong>5.</strong> <span id="show5"></span></p>
+                <p><strong>6.</strong> <span id="show6"></span></p>
+                <p><strong>7.</strong> <span id="show7"></span></p>
+                <p><strong>8.</strong> <span id="show8"></span></p>
+                <p><strong>9.</strong> <span id="show9"></span></p>
+                <p><strong>10.</strong> <span id="show10"></span></p>
+                <p>📸 Take a screenshot of your answers now!</p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function startSurvey() {
+            let name = document.getElementById("userName").value;
+            if (name.trim() === "") {
+                alert("Please enter your name.");
+                return;
+            }
+            document.getElementById("nameInput").style.display = "none";
+            document.getElementById("q1").style.display = "block";
+            document.getElementById("showName").innerText = name;
+        }
+
+        function nextQuestion(qNum) {
+            document.getElementById("q" + qNum).style.display = "none"; 
+            if (qNum < 10) {
+                document.getElementById("q" + (qNum + 1)).style.display = "block";
+            } else {
+                document.getElementById("final").style.display = "block";
+                showAnswers();
+            }
+        }
+
+        function showAnswers() {
+            for (let i = 1; i <= 10; i++) {
+                document.getElementById("show" + i).innerText = document.getElementById("answer" + i).value;
+            }
+        }
+    </script>
+
+</body>
+</html>
